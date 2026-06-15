@@ -1,12 +1,18 @@
 repeat task.wait() until game:IsLoaded()
 
-task.wait(10) -- đợi thêm 10 giây cho game hiện GUI
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+
+task.wait(10)
 
 local Vim = game:GetService("VirtualInputManager")
 
-while task.wait(1) do
+while not Player.Character do
 pcall(function()
 Vim:SendMouseButtonEvent(500,300,0,true,game,0)
 Vim:SendMouseButtonEvent(500,300,0,false,game,0)
 end)
+task.wait(1)
 end
+
+print("Character loaded, stopping clicks")
